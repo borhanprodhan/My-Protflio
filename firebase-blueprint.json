@@ -1,0 +1,254 @@
+{
+  "entities": {
+    "SiteContent": {
+      "title": "SiteContent",
+      "description": "Global portfolio content, personal info, SEO metadata, CV link, and section visibility toggles.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "minLength": 2, "maxLength": 120 },
+        "title": { "type": "string", "minLength": 2, "maxLength": 160 },
+        "location": { "type": "string", "minLength": 2, "maxLength": 160 },
+        "email": { "type": "string", "format": "email", "maxLength": 160 },
+        "phone": { "type": "string", "minLength": 5, "maxLength": 40 },
+        "experienceSummary": { "type": "string", "minLength": 2, "maxLength": 160 },
+        "educationHsc": { "type": "string", "maxLength": 100 },
+        "educationSsc": { "type": "string", "maxLength": 100 },
+        "heroHeading": { "type": "string", "minLength": 5, "maxLength": 220 },
+        "heroSubheading": { "type": "string", "minLength": 5, "maxLength": 400 },
+        "introText": { "type": "string", "minLength": 5, "maxLength": 400 },
+        "aboutHeading": { "type": "string", "minLength": 2, "maxLength": 160 },
+        "aboutBody": { "type": "string", "minLength": 10, "maxLength": 2500 },
+        "profilePhotoUrl": { "type": "string", "maxLength": 500 },
+        "cvUrl": { "type": "string", "maxLength": 500 },
+        "cvLabel": { "type": "string", "maxLength": 80 },
+        "footerTagline": { "type": "string", "maxLength": 200 },
+        "footerSubtitle": { "type": "string", "maxLength": 200 },
+        "seoTitle": { "type": "string", "maxLength": 120 },
+        "seoDescription": { "type": "string", "maxLength": 300 },
+        "ogTitle": { "type": "string", "maxLength": 120 },
+        "ogDescription": { "type": "string", "maxLength": 300 },
+        "showHero": { "type": "boolean" },
+        "showAbout": { "type": "boolean" },
+        "showServices": { "type": "boolean" },
+        "showSkills": { "type": "boolean" },
+        "showProjects": { "type": "boolean" },
+        "showContact": { "type": "boolean" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "name",
+        "title",
+        "location",
+        "email",
+        "phone",
+        "experienceSummary",
+        "heroHeading",
+        "heroSubheading",
+        "aboutHeading",
+        "aboutBody",
+        "showHero",
+        "showAbout",
+        "showServices",
+        "showSkills",
+        "showProjects",
+        "showContact",
+        "updatedAt"
+      ]
+    },
+    "ServiceItem": {
+      "title": "ServiceItem",
+      "description": "Offered automation and digital marketing service card.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "minLength": 2, "maxLength": 120 },
+        "slug": { "type": "string", "minLength": 2, "maxLength": 120, "pattern": "^[a-z0-9-]+$" },
+        "shortDescription": { "type": "string", "minLength": 10, "maxLength": 400 },
+        "fullDescription": { "type": "string", "minLength": 10, "maxLength": 2000 },
+        "deliverables": { "type": "array", "description": "Up to 10 key workflow deliverables." },
+        "visualUrl": { "type": "string", "maxLength": 500 },
+        "order": { "type": "number" },
+        "visible": { "type": "boolean" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "title",
+        "slug",
+        "shortDescription",
+        "fullDescription",
+        "deliverables",
+        "order",
+        "visible",
+        "updatedAt"
+      ]
+    },
+    "SkillItem": {
+      "title": "SkillItem",
+      "description": "Core capability or automation discipline.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "minLength": 2, "maxLength": 100 },
+        "category": { "type": "string", "minLength": 2, "maxLength": 80 },
+        "description": { "type": "string", "minLength": 5, "maxLength": 300 },
+        "order": { "type": "number" },
+        "visible": { "type": "boolean" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "category", "description", "order", "visible", "updatedAt"]
+    },
+    "ProjectItem": {
+      "title": "ProjectItem",
+      "description": "Portfolio workflow system or automation blueprint.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "minLength": 2, "maxLength": 140 },
+        "slug": { "type": "string", "minLength": 2, "maxLength": 140, "pattern": "^[a-z0-9-]+$" },
+        "category": { "type": "string", "minLength": 2, "maxLength": 100 },
+        "description": { "type": "string", "minLength": 10, "maxLength": 2500 },
+        "coverImage": { "type": "string", "maxLength": 500 },
+        "gallery": { "type": "array", "description": "Up to 8 gallery image URLs." },
+        "technologies": { "type": "array", "description": "Up to 12 technologies." },
+        "projectUrl": { "type": "string", "maxLength": 500 },
+        "githubUrl": { "type": "string", "maxLength": 500 },
+        "status": {
+          "type": "string",
+          "enum": ["Architecture Blueprint", "In Development", "Published"]
+        },
+        "featured": { "type": "boolean" },
+        "published": { "type": "boolean" },
+        "order": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "title",
+        "slug",
+        "category",
+        "description",
+        "technologies",
+        "status",
+        "featured",
+        "published",
+        "order",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "LanguageItem": {
+      "title": "LanguageItem",
+      "description": "Editable language entry with optional proficiency.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "minLength": 2, "maxLength": 60 },
+        "proficiency": { "type": "string", "maxLength": 80 },
+        "order": { "type": "number" },
+        "visible": { "type": "boolean" }
+      },
+      "required": ["name", "proficiency", "order", "visible"]
+    },
+    "SocialLinkItem": {
+      "title": "SocialLinkItem",
+      "description": "Editable social profile link.",
+      "type": "object",
+      "properties": {
+        "platform": { "type": "string", "minLength": 2, "maxLength": 60 },
+        "label": { "type": "string", "minLength": 2, "maxLength": 80 },
+        "url": { "type": "string", "maxLength": 500 },
+        "order": { "type": "number" },
+        "visible": { "type": "boolean" }
+      },
+      "required": ["platform", "label", "url", "order", "visible"]
+    },
+    "MediaItem": {
+      "title": "MediaItem",
+      "description": "Uploaded portfolio image or document reference.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "minLength": 1, "maxLength": 140 },
+        "url": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "mimeType": { "type": "string", "minLength": 3, "maxLength": 100 },
+        "sizeBytes": { "type": "number" },
+        "uploadedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "url", "mimeType", "sizeBytes", "uploadedAt"]
+    },
+    "ContactMessage": {
+      "title": "ContactMessage",
+      "description": "Private visitor inquiry stored securely for admin triage.",
+      "type": "object",
+      "properties": {
+        "fullName": { "type": "string", "minLength": 2, "maxLength": 120 },
+        "email": { "type": "string", "format": "email", "maxLength": 160 },
+        "phone": { "type": "string", "minLength": 5, "maxLength": 40 },
+        "companyName": { "type": "string", "maxLength": 140 },
+        "serviceRequired": { "type": "string", "minLength": 2, "maxLength": 120 },
+        "projectBudget": { "type": "string", "maxLength": 100 },
+        "message": { "type": "string", "minLength": 10, "maxLength": 3000 },
+        "status": {
+          "type": "string",
+          "enum": ["New", "Contacted", "In Progress", "Completed", "Archived"]
+        },
+        "submittedAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "fullName",
+        "email",
+        "phone",
+        "serviceRequired",
+        "message",
+        "status",
+        "submittedAt",
+        "updatedAt"
+      ]
+    },
+    "AdminUser": {
+      "title": "AdminUser",
+      "description": "Verified administrator allowlist record.",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "format": "email", "maxLength": 160 },
+        "role": { "type": "string", "enum": ["admin"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["email", "role", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/site_content/{docId}": {
+      "schema": { "$ref": "#/entities/SiteContent" },
+      "description": "Publicly readable portfolio copy and configuration, writable only by verified admins."
+    },
+    "/services/{serviceId}": {
+      "schema": { "$ref": "#/entities/ServiceItem" },
+      "description": "Publicly readable visible services, writable only by verified admins."
+    },
+    "/skills/{skillId}": {
+      "schema": { "$ref": "#/entities/SkillItem" },
+      "description": "Publicly readable visible skills, writable only by verified admins."
+    },
+    "/projects/{projectId}": {
+      "schema": { "$ref": "#/entities/ProjectItem" },
+      "description": "Publicly readable published projects, all operations allowed for verified admins."
+    },
+    "/languages/{languageId}": {
+      "schema": { "$ref": "#/entities/LanguageItem" },
+      "description": "Publicly readable visible languages, writable only by verified admins."
+    },
+    "/social_links/{linkId}": {
+      "schema": { "$ref": "#/entities/SocialLinkItem" },
+      "description": "Publicly readable visible social links, writable only by verified admins."
+    },
+    "/media/{mediaId}": {
+      "schema": { "$ref": "#/entities/MediaItem" },
+      "description": "Admin-managed media gallery records."
+    },
+    "/contact_messages/{messageId}": {
+      "schema": { "$ref": "#/entities/ContactMessage" },
+      "description": "Private visitor inquiries; create allowed with strict schema validation, read/update/delete restricted strictly to verified admins."
+    },
+    "/admins/{uid}": {
+      "schema": { "$ref": "#/entities/AdminUser" },
+      "description": "Admin role registry."
+    }
+  }
+}
