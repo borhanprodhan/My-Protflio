@@ -10,11 +10,17 @@
         var segments = path.split('/').filter(Boolean);
         var last = segments[segments.length - 1] || '';
         var isAdmin = last === 'admin';
-        if (window.location.hostname.endsWith('github.io') && segments.length >= 1) {
-          var base = '/' + segments[0] + '/';
-          window.location.replace(isAdmin ? base + '#/admin' : base);
+        if (window.location.hostname.endsWith('github.io')) {
+          if (segments.length >= 2) {
+            var base = '/' + segments[0] + '/';
+            window.location.replace(isAdmin ? base + '#/admin' : base);
+          } else if (segments.length === 1 && !isAdmin) {
+            window.location.replace('/' + segments[0] + '/');
+          } else {
+            window.location.replace(isAdmin ? '/#/admin' : '/');
+          }
         } else {
-          window.location.replace(isAdmin ? '/admin' : '/');
+          window.location.replace(isAdmin ? '/#/admin' : '/');
         }
       })();
     </script>

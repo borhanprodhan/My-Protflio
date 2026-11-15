@@ -40,16 +40,17 @@ class AppErrorBoundary extends Component<{ children: ReactNode }, ErrorBoundaryS
   }
 }
 
-function isStaticSubpathHost(): boolean {
+function shouldUseHashRouter(): boolean {
   if (typeof window === 'undefined') return false;
-  return (
-    window.location.hostname.endsWith('github.io') ||
-    window.location.protocol === 'file:'
-  );
+  const { hostname, protocol, pathname, hash } = window.location;
+  if (hostname.endsWith('github.io') || protocol === 'file:' || hash.startsWith('#/')) {
+    return true;
+  }
+  return pathname !== '/' && pathname !== '/admin' && pathname !== '/admin/';
 }
 
 export default function App() {
-  const Router = isStaticSubpathHost() ? HashRouter : BrowserRouter;
+  const Router = shouldUseHashRouter() ? HashRouter : BrowserRouter;
 
   return (
     <AppErrorBoundary>

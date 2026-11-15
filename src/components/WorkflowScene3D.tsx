@@ -260,7 +260,11 @@ export function WorkflowScene3D({ scrollProgressRef, mouseRef }: WorkflowScene3D
     }
 
     function afterDraw(cb: () => void) {
-      const gl = renderer.getContext() as WebGL2RenderingContext;
+      const gl = renderer.getContext() as WebGL2RenderingContext | null;
+      if (!gl || typeof gl.fenceSync !== 'function') {
+        frameId = window.setTimeout(cb, 80);
+        return;
+      }
       const sync = gl.fenceSync(gl.SYNC_GPU_COMMANDS_COMPLETE, 0);
       gl.flush();
       const poll = () => {
