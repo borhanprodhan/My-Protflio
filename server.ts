@@ -1,7 +1,7 @@
 import cookieParser from 'cookie-parser';
 import crypto from 'node:crypto';
 import dotenv from 'dotenv';
-import express, { NextFunction, Request, Response } from 'express';
+import express, { type NextFunction, type Request, type Response } from 'express';
 import fs from 'node:fs';
 import path from 'node:path';
 import { z } from 'zod';

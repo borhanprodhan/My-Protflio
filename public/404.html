@@ -8,14 +8,13 @@
       (function () {
         var path = window.location.pathname;
         var segments = path.split('/').filter(Boolean);
-        // Preserve GitHub Pages project repo segment (e.g. /repo-name/admin -> /repo-name/#/admin)
+        var last = segments[segments.length - 1] || '';
+        var isAdmin = last === 'admin';
         if (window.location.hostname.endsWith('github.io') && segments.length >= 1) {
-          var isAdmin = segments[segments.length - 1] === 'admin';
           var base = '/' + segments[0] + '/';
-          var target = isAdmin ? base + '#/admin' : base;
-          window.location.replace(target);
+          window.location.replace(isAdmin ? base + '#/admin' : base);
         } else {
-          window.location.replace('/');
+          window.location.replace(isAdmin ? '/admin' : '/');
         }
       })();
     </script>
