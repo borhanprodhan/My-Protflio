@@ -7,17 +7,20 @@ import type {
   SocialLinkItem,
 } from '../types/portfolio';
 
-export const PROFILE_PHOTO_PATH =
-  '/assets/aistudio/6340b46f-2dd3-4faa-a5db-cad16a2dd993_963f79bb.jpg';
+import visualWorkflow from '../assets/images/workflow_node_architecture_1794638823438.jpg';
+import visualMessaging from '../assets/images/messaging_channel_bridge_1794638824208.jpg';
+import visualPipeline from '../assets/images/email_crm_pipeline_1794638824641.jpg';
+import visualSheets from '../assets/images/sheets_data_sync_1794638824877.jpg';
 
-export const VISUAL_WORKFLOW =
-  '/src/assets/images/workflow_node_architecture_1794638823438.jpg';
-export const VISUAL_MESSAGING =
-  '/src/assets/images/messaging_channel_bridge_1794638824208.jpg';
-export const VISUAL_PIPELINE =
-  '/src/assets/images/email_crm_pipeline_1794638824641.jpg';
-export const VISUAL_SHEETS =
-  '/src/assets/images/sheets_data_sync_1794638824877.jpg';
+const BASE = import.meta.env.BASE_URL || './';
+const normalizedBase = BASE.endsWith('/') ? BASE : `${BASE}/`;
+
+export const PROFILE_PHOTO_PATH = `${normalizedBase}assets/aistudio/6340b46f-2dd3-4faa-a5db-cad16a2dd993_963f79bb.jpg`;
+
+export const VISUAL_WORKFLOW = visualWorkflow;
+export const VISUAL_MESSAGING = visualMessaging;
+export const VISUAL_PIPELINE = visualPipeline;
+export const VISUAL_SHEETS = visualSheets;
 
 export const DEFAULT_SITE_CONTENT: SiteContent = {
   name: 'MD. Borhan Prodhan',

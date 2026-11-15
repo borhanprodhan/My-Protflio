@@ -56,7 +56,17 @@ export function usePortfolioData(includeHiddenForAdmin = false): PortfolioState 
         doc(db, 'site_content', 'main'),
         (snap) => {
           if (snap.exists()) {
-            setSiteContent({ ...DEFAULT_SITE_CONTENT, ...(snap.data() as Partial<SiteContent>) });
+            const remote = snap.data() as Partial<SiteContent>;
+            const rawPhoto = remote.profilePhotoUrl;
+            const normalizedPhoto =
+              rawPhoto && rawPhoto.startsWith('/assets/')
+                ? `${(import.meta.env.BASE_URL || './').replace(/\/?$/, '/')}assets/${rawPhoto.slice('/assets/'.length)}`
+                : rawPhoto;
+            setSiteContent({
+              ...DEFAULT_SITE_CONTENT,
+              ...remote,
+              ...(normalizedPhoto ? { profilePhotoUrl: normalizedPhoto } : {}),
+            });
             setHasRemoteData(true);
           }
           setLoading(false);

@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MD. Borhan Prodhan — Redirecting</title>
+    <script>
+      (function () {
+        var path = window.location.pathname;
+        var segments = path.split('/').filter(Boolean);
+        // Preserve GitHub Pages project repo segment (e.g. /repo-name/admin -> /repo-name/#/admin)
+        if (window.location.hostname.endsWith('github.io') && segments.length >= 1) {
+          var isAdmin = segments[segments.length - 1] === 'admin';
+          var base = '/' + segments[0] + '/';
+          var target = isAdmin ? base + '#/admin' : base;
+          window.location.replace(target);
+        } else {
+          window.location.replace('/');
+        }
+      })();
+    </script>
+  </head>
+  <body style="background:#080B14;color:#F8FAFC;font-family:system-ui,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;">
+    <p>Redirecting to portfolio...</p>
+  </body>
+</html>

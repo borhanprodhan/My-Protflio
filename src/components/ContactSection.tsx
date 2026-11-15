@@ -1,5 +1,7 @@
+import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { CheckCircle2, Mail, MapPin, Phone, Send } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+import { db, handleFirestoreError, OperationType } from '../firebase';
 import type { ServiceItem, SiteContent } from '../types/portfolio';
 
 interface ContactSectionProps {
@@ -89,10 +91,35 @@ export function ContactSection({
         }),
       });
 
-      const data = (await response.json()) as { ok?: boolean; error?: string };
-      if (!response.ok || !data.ok) {
-        setErrorMsg(data.error || 'Unable to send your message right now.');
-        return;
+      if (response.status === 404 || response.status === 405) {
+        // Static hosting fallback (e.g., GitHub Pages without Node backend)
+        if (website.trim().length > 0 || Date.now() - renderedAtRef.current < 1000) {
+          setErrorMsg('Invalid form submission.');
+          return;
+        }
+        const msgId = `msg_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
+        try {
+          await setDoc(doc(db, 'contact_messages', msgId), {
+            fullName: fullName.trim().slice(0, 120),
+            email: email.trim().slice(0, 160),
+            phone: phone.trim().slice(0, 40),
+            companyName: companyName.trim().slice(0, 140),
+            serviceRequired: serviceRequired.trim().slice(0, 120),
+            projectBudget: projectBudget.trim().slice(0, 100),
+            message: message.trim().slice(0, 3000),
+            status: 'New',
+            submittedAt: serverTimestamp(),
+            updatedAt: serverTimestamp(),
+          });
+        } catch (fsErr) {
+          handleFirestoreError(fsErr, OperationType.CREATE, `contact_messages/${msgId}`);
+        }
+      } else {
+        const data = (await response.json()) as { ok?: boolean; error?: string };
+        if (!response.ok || !data.ok) {
+          setErrorMsg(data.error || 'Unable to send your message right now.');
+          return;
+        }
       }
 
       setSubmittedSuccess(true);

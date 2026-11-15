@@ -69,6 +69,20 @@ export function AdminAuthGate({ session, onSessionChange }: AdminAuthGateProps) 
         credentials: 'include',
         body: JSON.stringify({ idToken }),
       });
+      if (res.status === 404 || res.status === 405) {
+        if (cred.user.emailVerified && cred.user.email === 'mdborhprodhan@gmail.com') {
+          onSessionChange({
+            authenticated: true,
+            username: 'borhan',
+            authMethod: 'google',
+            mustChangePassword: false,
+            passwordConfigured: false,
+          });
+          return;
+        }
+        setError('Access denied. Verified owner Google account required.');
+        return;
+      }
       const data = (await res.json()) as ServerSessionState & { error?: string };
       if (!res.ok) {
         setError(data.error || 'Google owner verification failed.');
